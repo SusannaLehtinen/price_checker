@@ -1,109 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
-  <title>Cozy Cup Café</title>
+  <title>Home | Cozy Cup Café</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/style.css" />
 </head>
-<body style="margin-top: 100px;">
-  <!-- ======= NAVBAR (SAME AS HOME PAGE) ======= -->
+<body style="margin-top: 100px">
 <div id="navbar-container"></div>
-
-  <!-- ======= PAGE HEADER ======= -->
-  <section class="page-header">
-    <h1 class="page-header__title">Menu</h1>
-
+  <!-- ======= HERO SECTION ======= -->
+  <section class="hero">
+    <div class="hero__content">
+      <h1 class="hero__title">Verkkokahvila</h1>
+      <p class="hero__subtitle">
+        Freshly brewed coffee, homemade pastries, and a warm online corner just for you.
+      </p>
+      <!--
+      <div class="hero__actions">
+        <a href="products.html" class="btn btn--primary">View Menu</a>
+        <a href="#about" class="btn btn--outline">Login</a>
+        <a href="#about" class="btn btn--outline">About</a>
+      </div>
+    -->
+    </div>
+    <div class="hero__image">
+      <!-- This can be a real image later -->
+      <div class="hero__image-placeholder">
+        Your coffee image here
+      </div>
+    </div>
   </section>
 
-  <!-- ======= CATEGORY FILTERS (JUST VISUAL, NO JS NEEDED) ======= -->
-  <section class="section">
-    <div class="filters">
-      <button class="filter-button filter-button--active">All</button>
-      <button class="filter-button">Hot Drinks</button>
-      <button class="filter-button">Cold Drinks</button>
-      <button class="filter-button">Pastries</button>
+  <!-- ======= FEATURED PRODUCTS ======= -->
+  <section class="section" id="featured">
+    <div class="section__header">
+      <h2 class="section__title">Today’s Specials</h2>
+      <p class="section__subtitle">Handpicked drinks just for you.</p>
     </div>
 
-    <!-- ======= PRODUCTS GRID ======= -->
-    <div class="product-grid product-grid--menu">
-      <!-- Example product -->
+    <div class="product-grid">
+      <!-- Card 1 -->
       <article class="product-card">
         <div class="product-card__image">Image</div>
         <div class="product-card__body">
-          <h3 class="product-card__title">Espresso</h3>
+          <h3 class="product-card__title">Caramel Latte</h3>
           <p class="product-card__description">
-            Strong and bold single shot of espresso.
+            Smooth espresso with steamed milk and caramel drizzle.
           </p>
-          <div class="product-card__meta">
-            <span class="product-card__tag">Hot Drink</span>
-            <span class="product-card__size">30 ml</span>
-          </div>
           <div class="product-card__footer">
-            <span class="product-card__price">$2.50</span>
+            <span class="product-card__price">$4.50</span>
             <button class="btn btn--small">Add to cart</button>
           </div>
         </div>
       </article>
 
-      <!-- Duplicate & change details for more items -->
+      <!-- Card 2 -->
       <article class="product-card">
         <div class="product-card__image">Image</div>
         <div class="product-card__body">
-          <h3 class="product-card__title">Cappuccino</h3>
+          <h3 class="product-card__title">Iced Mocha</h3>
           <p class="product-card__description">
-            Espresso with steamed milk and foam.
+            Chocolate, espresso, and cold milk over ice.
           </p>
-          <div class="product-card__meta">
-            <span class="product-card__tag">Hot Drink</span>
-            <span class="product-card__size">250 ml</span>
-          </div>
           <div class="product-card__footer">
-            <span class="product-card__price">$3.80</span>
+            <span class="product-card__price">$4.20</span>
             <button class="btn btn--small">Add to cart</button>
           </div>
         </div>
       </article>
 
+      <!-- Card 3 -->
       <article class="product-card">
         <div class="product-card__image">Image</div>
         <div class="product-card__body">
-          <h3 class="product-card__title">Iced Latte</h3>
+          <h3 class="product-card__title">Blueberry Muffin</h3>
           <p class="product-card__description">
-            Chilled espresso with milk over ice.
+            Freshly baked muffin with real blueberries.
           </p>
-          <div class="product-card__meta">
-            <span class="product-card__tag">Cold Drink</span>
-            <span class="product-card__size">300 ml</span>
-          </div>
           <div class="product-card__footer">
-            <span class="product-card__price">$4.00</span>
+            <span class="product-card__price">$2.80</span>
             <button class="btn btn--small">Add to cart</button>
           </div>
         </div>
       </article>
+    </div>
+  </section>
 
-      <article class="product-card">
-        <div class="product-card__image">Image</div>
-        <div class="product-card__body">
-          <h3 class="product-card__title">Chocolate Croissant</h3>
-          <p class="product-card__description">
-            Flaky pastry filled with rich chocolate.
-          </p>
-          <div class="product-card__meta">
-            <span class="product-card__tag">Pastry</span>
-            <span class="product-card__size">1 piece</span>
-          </div>
-          <div class="product-card__footer">
-            <span class="product-card__price">$3.20</span>
-            <button class="btn btn--small">Add to cart</button>
-          </div>
-        </div>
-      </article>
+  <!-- ======= ABOUT SECTION ======= -->
+  <section class="section section--alt" id="about">
+    <div class="section__header">
+      <h2 class="section__title">About Verkkokahvila</h2>
+    </div>
+    <div class="about">
+      <div class="about__text">
+        <p>
+          Cozy Cup Café is your online spot for quality coffee and snacks.
+          We source our beans ethically and bake our treats fresh every morning.
+        </p>
+        <p>
+          Order online, pick up in-store, or just browse our menu and dream
+          about your next cup.
+        </p>
+      </div>
+      <ul class="about__list">
+        <li>☕ 100% Arabica beans</li>
+        <li>🍰 Fresh pastries daily</li>
+        <li>🚚 Fast pickup</li>
+      </ul>
     </div>
   </section>
 
   <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+
+  </footer>
 <script src="js/loadNavbar.js"></script>
 </body>
 </html>
