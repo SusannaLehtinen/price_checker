@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Product (Admin)</title>
+</head>
+<body>
+  <h1>Add a New Product</h1>
+
+  <!-- This form sends data to Node on POST /admin/add-product -->
+  <form action="/admin/add-product" method="POST">
+    <div>
+      <label for="name">Product name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div>
+      <label for="description">Description:</label><br>
+      <textarea id="description" name="description" rows="4" cols="40" placeholder="Describe the coffee"></textarea>
+    </div>
+
+    <div>
+      <label for="price">Price (€):</label>
+      <input type="number" id="price" name="price" step="0.01" required>
+    </div>
+
+    <div>
+      <label for="image">Image URL (optional):</label>
+      <input type="text" id="image" name="image" placeholder="https://example.com/coffee.jpg">
+    </div>
+
+    <button type="submit">Save product</button>
+  </form>
+</body>
+</html>
