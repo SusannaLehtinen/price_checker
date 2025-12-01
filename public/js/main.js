@@ -121,7 +121,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.text())
                 .then(data => {
                     addProductFormContainer.innerHTML = data;
+                    // --- AFTER loading the form, attach the event listener ---
+                    const addProductForm = document.getElementById('addProductForm');
+                    if (addProductForm) {
+                        addProductForm.addEventListener('submit', handleAddProductSubmit);
+                    }
                 });
+        }
+    }
+
+    // --- Handler for submitting the new product form ---
+    async function handleAddProductSubmit(event) {
+        event.preventDefault(); // Prevent default form submission (page reload)
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const productData = Object.fromEntries(formData.entries());
+
+        // Ensure price is a number
+        productData.price = parseFloat(productData.price);
+
+        const token = localStorage.getItem('token'); // Get token from localStorage
+
+        if (!token) {
+            alert('Authentication error: You are not logged in.');
+            window.location.href = '/login.html'; // Redirect to login
+            return;
+        }
+
+        try {
+            const response = await fetch('/admin/add-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Add the Authorization header
+                },
+                body: JSON.stringify(productData)
+            });
+
+            const responseData = await response.json();
+            if (response.ok) {
+                alert('Product added successfully!');
+                form.reset(); // Clear the form
+            } else {
+                alert(`Failed to add product: ${responseData.message || 'Unknown error'}`);
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('An error occurred while adding the product. Please check the console for details.');
         }
     }
 });
