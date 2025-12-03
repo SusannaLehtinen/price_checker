@@ -50,7 +50,7 @@ exports.updateStatus = async (req, res) => {
 // GET MY ORDERS (USER)
 exports.getMyOrders = async (req, res) => {
     try {
-        const userId = 1; // <-- TEST USER
+        const userId = req.user.id;
 
         const orders = await Order.getUserOrders(userId);
 
@@ -65,6 +65,7 @@ exports.getMyOrders = async (req, res) => {
         res.status(500).json(err);
     }
 };
+
 
 
 // GET ALL ORDERS (ADMIN)

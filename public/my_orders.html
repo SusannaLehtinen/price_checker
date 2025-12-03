@@ -9,7 +9,6 @@
 
 <body style="margin-top: 100px;">
 
-<!-- NAVBAR -->
 <div id="navbar-container"></div>
 
 <div class="container">
@@ -25,59 +24,61 @@
 
 <script>
 function loadMyOrders() {
-    fetch("/orders/mine")
-        .then(res => res.json())
-        .then(orders => {
-            const container = document.getElementById("orders-container");
-            container.innerHTML = "";
+    fetch("/orders/mine", {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    })
+    .then(res => res.json())
+    .then(orders => {
+        const container = document.getElementById("orders-container");
+        container.innerHTML = "";
 
-            if (!orders || orders.length === 0) {
-                container.innerHTML = `<p>No orders found.</p>`;
-                return;
-            }
+        if (!orders || orders.length === 0) {
+            container.innerHTML = `<p>No orders found.</p>`;
+            return;
+        }
 
-            orders.forEach(order => {
+        orders.forEach(order => {
 
-                let itemsHTML = "";
-                order.items.forEach(item => {
-                    itemsHTML += `
-                        <li>
-                            Product ID: ${item.product_id}<br>
-                            Quantity: ${item.quantity}<br>
-                            Price: $${item.price}
-                        </li>
-                    `;
-                });
-
-                container.innerHTML += `
-                <div class="product-card">
-                  <div class="product-card__body">
-                    
-                    <h2 class="product-card__title">Order #${order.id}</h2>
-
-                    <p class="product-card__description">
-                        <strong>Date:</strong> ${order.created_at || "N/A"}<br>
-                        <strong>Total:</strong> $${order.total_price}<br>
-                        <strong>Status:</strong> ${order.status}
-                    </p>
-
-                    <div class="product-card__meta" style="margin-top: 15px;">
-                        <strong>Items:</strong>
-                        <ul
-                            ${itemsHTML}
-                        </ul>
-                    </div>
-
-                    ${order.status === "pending" ? `
-                        <button class="btn btn--outline" onclick="cancelOrder(${order.id})">
-                            Cancel Order
-                        </button>
-                    ` : ``}
-
-                  </div>
-                </div>`;
+            let itemsHTML = "";
+            order.items.forEach(item => {
+                itemsHTML += `
+                    <li>
+                        Product ID: ${item.product_id}<br>
+                        Quantity: ${item.quantity}<br>
+                        Price: $${item.price}
+                    </li>
+                `;
             });
+
+            container.innerHTML += `
+            <div class="product-card">
+              <div class="product-card__body">
+                
+                <h2 class="product-card__title">Order #${order.id}</h2>
+
+                <p class="product-card__description">
+                    <strong>Date:</strong> ${order.created_at || "N/A"}<br>
+                    <strong>Total:</strong> $${order.total_price}<br>
+                    <strong>Status:</strong> ${order.status}
+                </p>
+
+                <div class="product-card__meta" style="margin-top: 15px;">
+                    <strong>Items:</strong>
+                    <ul>${itemsHTML}</ul>
+                </div>
+
+                ${order.status === "pending" ? `
+                    <button class="btn btn--outline" style="margin-top: 15px;" onclick="cancelOrder(${order.id})">
+                        Cancel Order
+                    </button>
+                ` : ``}
+
+              </div>
+            </div>`;
         });
+    });
 }
 
 function cancelOrder(orderId) {
@@ -85,7 +86,10 @@ function cancelOrder(orderId) {
 
     fetch(`/orders/cancel/${orderId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" }
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
     })
     .then(res => res.json())
     .then(data => {
