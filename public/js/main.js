@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add "Log Out" button
             const logoutBtn = document.createElement('a');
             logoutBtn.href = '#';
-            logoutBtn.textContent = 'Log Out';
+            logoutBtn.textContent = 'Logout';
             logoutBtn.classList.add('dynamic-link'); // Mark as dynamic
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 logout();
             });
-            navbar.insertBefore(logoutBtn, cartLink); // Insert before cart link
+            navbar.insertBefore(logoutBtn, null); // Insert as last item
 
             // Add "Admin Panel" link if admin
             const decoded = decodeToken(token);
