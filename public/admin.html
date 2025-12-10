@@ -4,15 +4,63 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Simple table styles for admin panel */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .admin-table th {
+            background-color: #f2f2f2;
+        }
+        .order-status-select {
+            padding: 5px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body style="margin-top: 100px;">
     <div id="navbar-container"></div>
 
     <div class="container">
-        <h1>Admin Panel</h1>
-        <div id="add-product-form-container"></div>
+        <div class="section page-header">
+            <h1 class="page-header__title">Admin Panel</h1>
+        </div>
+
+        <div class="section">
+            <h2 class="section__title">Manage Orders</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>User</th>
+                        <th>Total Price</th>
+                        <th>Products</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-orders-table-body">
+                    <!-- Orders will be loaded here by admin.js -->
+                    <tr><td colspan="7">Loading orders...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section__title">Add New Product</h2>
+            <div id="add-product-form-container"></div>
+        </div>
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>

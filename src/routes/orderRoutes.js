@@ -1,26 +1,56 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const db = require('../config/db');
+const authMiddleware = require('../middleware/authMiddleware');
 
-const orderController = require("../controllers/orderController");
-const auth = require("../middleware/authMiddleware");
+// Create a new order
+router.post('/api/orders/create', authMiddleware, async (req, res) => {
+    const userId = req.userData.userId;
+    const cart = req.session.cart;
 
-// USER ROUTES
+    if (!cart || cart.length === 0) {
+        return res.status(400).json({ message: 'Cart is empty' });
+    }
 
-// Place new order
-router.post("/place", auth, orderController.placeOrder);
+    const connection = await db.getConnection(); // Get a connection from the pool
 
-// Get logged-in user's own orders
-router.get("/mine", auth, orderController.getMyOrders);
+    try {
+        await connection.beginTransaction();
 
-// Cancel order belonging to logged-in user
-router.put('/cancel/:orderId', auth, orderController.cancelOrder);
+        // Calculate total amount
+        const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-// ADMIN ROUTES
+        // 1. Create an entry in the `orders` table
+        const [orderResult] = await connection.execute(
+            'INSERT INTO orders (user_id, total_amount) VALUES (?, ?)',
+            [userId, totalAmount]
+        );
+        const orderId = orderResult.insertId;
 
-// Get all orders (admin only)
-router.get("/all", auth, orderController.getAllOrders);
+        // 2. Create entries in the `order_items` table for each cart item
+        const orderItemsPromises = cart.map(item => {
+            return connection.execute(
+                'INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
+                [orderId, item.id, item.quantity, item.price]
+            );
+        });
+        await Promise.all(orderItemsPromises);
 
-// Update order status (admin only)
-router.put("/status/:orderId", auth, orderController.updateStatus);
+        // 3. Commit the transaction
+        await connection.commit();
+
+        // 4. Clear the cart
+        req.session.cart = [];
+
+        res.status(201).json({ message: 'Order created successfully', orderId: orderId });
+
+    } catch (error) {
+        await connection.rollback(); // Rollback on error
+        console.error('Error creating order:', error);
+        res.status(500).json({ message: 'Failed to create order' });
+    } finally {
+        connection.release(); // Always release the connection
+    }
+});
 
 module.exports = router;
