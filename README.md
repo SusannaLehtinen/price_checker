@@ -1,6 +1,6 @@
-# Online Coffee Shop
+# ☕ Online Coffee Shop
 
-Web application for browsing coffee products, user authentication (signup/login), shopping cart, and placing orders. Built with **Express.js**, **MySQL**, and **HTML + Fetch API**.
+A web application for an online coffee shop where users can browse coffee products, view details, add items to the cart, and place orders. The project includes user registration/login and an admin panel for managing products and orders.
 
 ---
 
@@ -10,12 +10,11 @@ Web application for browsing coffee products, user authentication (signup/login)
 
 coffee_shop/
 │
-├── public/                     # Frontend files
+├── public/                     # Front-end (static files)
 │   ├── css/
 │   │   └── style.css
 │   ├── images/
-│   │   └── coffee/
-│   │       └── coffee_images.txt
+│   │   └── coffee/              # coffee images
 │   ├── js/
 │   │   ├── cart.js
 │   │   ├── loadNavbar.js
@@ -32,7 +31,7 @@ coffee_shop/
 │   ├── product.html
 │   └── signup.html
 │
-├── src/                        # Backend files
+├── src/                         # Back-end (server-side)
 │   ├── controllers/
 │   │   ├── orderControllers.js
 │   │   ├── productControllers.js
@@ -50,10 +49,9 @@ coffee_shop/
 │       ├── productRoutes.js
 │       └── userRoutes.js
 │
-├── .env                        # Environment variables
-├── package.json                # Node.js dependencies and scripts
-├── server.js                   # Entry point: starts Express server
-└── app.js                      # Express app configuration
+├── .env                         # Environment configuration
+├── package.json                 # Node.js dependencies and scripts
+└── server.js                    # Express server entry point
 
 ````
 
@@ -61,54 +59,72 @@ coffee_shop/
 
 ## ⚙️ Installation
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/Artur-Nayman/coffee_shop.git
-cd coffee_shop
-````
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/Artur-Nayman/coffee_shop.git  
+   cd coffee_shop  
+   ````
 
 2. Install dependencies:
 
-```bash
-npm install
-```
+   ```bash
+   npm install  
+   ```
 
-3. Create a `.env` file with your MySQL credentials:
+3. Create a `.env` file with your MySQL configuration:
 
-```
-DB_HOST=localhost
-DB_USER=root
-DB_PASS=your_password
-DB_NAME=coffee_shop
-PORT=3000
-```
+   ```env
+   DB_HOST=localhost  
+   DB_USER=root  
+   DB_PASS=your_password  
+   DB_NAME=coffee_shop  
+   PORT=3000  
+   ```
 
-4. Run the server:
+4. Start the server:
 
-```bash
-node server.js
-```
+   ```bash
+   node server.js  
+   ```
 
-5. Open in browser:
+5. Open in your browser:
 
-```
-http://localhost:3000
-```
-
----
-
-## 🔹 Notes
-
-* **Login/Signup:** handled in `src/controllers/userControllers.js` and `public/login.html` / `public/signup.html`.
-* **Navbar:** included via `public/navbar.html` + `js/loadNavbar.js` for consistent navigation.
-* **Database:** `coffee_shop` with tables: `user`, `products`, `orders`, `order_items`.
-* **Cart:** `public/cart.html` + `js/cart.js`.
-* **Auth middleware:** `src/middleware/authMiddleware.js`.
+   ```
+   http://localhost:3000  
+   ```
 
 ---
 
-## 💻 Development
+## 💡 Features & Notes
 
-* Frontend: plain HTML + CSS + Fetch API
-* Backend: Node.js, Express, MySQL
+* Registration / Login: logic is located in `src/controllers/userControllers.js`, and the frontend in `public/login.html` and `public/signup.html`.
+* Navbar is loaded via `public/navbar.html` and `js/loadNavbar.js` to keep consistency across all pages.
+* MySQL database: uses tables like `user`, `products`, `orders`, and `order_items`.
+* Shopping cart: logic is implemented in `public/cart.html` and `js/cart.js`.
+* Authentication middleware: `src/middleware/authMiddleware.js`.
+
+---
+
+## 🛠 Technologies
+
+* Backend: **Node.js**, **Express**
+* Database: **MySQL**
+* Frontend: HTML, CSS, JavaScript (Fetch API)
+* Authentication and CRUD operations for products and orders
+
+---
+
+## 🔧 Development
+
+* Backend built with Express and route/controller structure
+* Models located in `src/models`
+* Services handle products, users, and orders logic
+* Frontend is built without frameworks and communicates using Fetch API
+
+---
+
+## ℹ️ About the Project
+
+This is an online coffee shop web application where customers can browse available products, add them to the cart, and place orders. An administrator can manage products and orders through an admin panel.
+
+---
