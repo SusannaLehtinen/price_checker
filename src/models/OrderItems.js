@@ -1,4 +1,4 @@
-const db = require('../config/db');
+// const db = require('../config/db');
 
 exports.getItemsByOrderId = async (orderId) => {
     const sql = `SELECT * FROM order_items WHERE order_id = ?`;

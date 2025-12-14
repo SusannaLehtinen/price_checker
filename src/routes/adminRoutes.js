@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+// const db = require('../config/db');
 
 // POST route to save a new product
 router.post('/add-product', async (req, res) => {

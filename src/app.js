@@ -5,12 +5,12 @@ const cors = require('cors');
 const session = require('express-session');
 const authRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const db = require('./config/db');
+// const db = require('./config/db');
 const authMiddleware = require('./middleware/authMiddleware');
 const adminMiddleware = require('./middleware/adminMiddleware');
 
-const menuRoutes = require('./routes/menuRoutes');
-const cartRoutes = require('./routes/cartRoutes');
+// const menuRoutes = require('./routes/menuRoutes');
+// const cartRoutes = require('./routes/cartRoutes');
 
 const app = express();
 
@@ -43,14 +43,14 @@ app.use((req, res, next) => {
     next();
 });
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static(path.join(__dirname, '../public')));
+//app.set('view engine', 'ejs');
+//app.set('views', path.join(__dirname, 'views'));
 
-app.use('/', menuRoutes);
-app.use('/', cartRoutes);
 
+//app.use(express.static(path.join(__dirname, '../public')));
+// app.use('/', menuRoutes);
+// app.use('/', cartRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/admin', adminMiddleware, adminRoutes);
 
