@@ -5,5 +5,5 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-const orderRoutes = require('./src/routes/orderRoutes');
-app.use('/orders', orderRoutes);
+//const orderRoutes = require('./src/routes/orderRoutes');
+// app.use('/orders', orderRoutes);
