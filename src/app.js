@@ -12,6 +12,8 @@ const adminMiddleware = require('./middleware/adminMiddleware');
 // const menuRoutes = require('./routes/menuRoutes');
 // const cartRoutes = require('./routes/cartRoutes');
 
+//Price Checker
+const priceRoutes = require('./routes/priceRoutes');
 const app = express();
 
 app.use(cors({
@@ -46,6 +48,8 @@ app.use((req, res, next) => {
 
 //app.set('view engine', 'ejs');
 //app.set('views', path.join(__dirname, 'views'));
+
+app.use('/prices',priceRoutes);
 
 
 //app.use(express.static(path.join(__dirname, '../public')));
