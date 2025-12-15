@@ -7,8 +7,8 @@
 <body>
   <h1>Add a New Product</h1>
 
-  <!-- This form sends data to Node on POST /admin/add-product -->
-  <form action="/admin/add-product" method="POST">
+  <!-- This form will be handled by JavaScript to include the auth token -->
+  <form id="addProductForm">
     <div>
       <label for="name">Product name:</label>
       <input type="text" id="name" name="name" required>

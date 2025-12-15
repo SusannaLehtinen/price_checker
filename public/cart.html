@@ -15,55 +15,19 @@
     </div>
 
     <div class="section product-grid cart-grid">
-
-      <div class="product-card">
-        <div class="product-card__image">
-          <span>Product Image</span>
-        </div>
-        <div class="product-card__body">
-          <h2 class="product-card__title">Coffee Beans</h2>
-          <p class="product-card__description">Premium roasted coffee, 500g pack</p>
-          <div class="product-card__meta">
-            <span class="product-card__price">$15.00</span>
-            <span>Quantity:
-              <input type="number" min="1" value="1" style="width: 50px; padding: 2px 5px; border-radius: 4px; border: 1px solid #ccc;">
-            </span>
-          </div>
-        </div>
-        <div class="product-card__footer">
-          <button class="btn btn--outline">Remove</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-card__image">
-          <span>Product Image</span>
-        </div>
-        <div class="product-card__body">
-          <h2 class="product-card__title">Espresso Machine</h2>
-          <p class="product-card__description">Compact espresso machine for home use</p>
-          <div class="product-card__meta">
-            <span class="product-card__price">$120.00</span>
-            <span>Quantity:
-              <input type="number" min="1" value="1" style="width: 50px; padding: 2px 5px; border-radius: 4px; border: 1px solid #ccc;">
-            </span>
-          </div>
-        </div>
-        <div class="product-card__footer">
-          <button class="btn btn--outline">Remove</button>
-        </div>
-      </div>
-
+      <!-- Cart items will be dynamically loaded here by cart.js -->
+      <p>Loading cart...</p>
     </div>
 
     <div class="section" style="max-width: 400px; margin: 2rem auto; text-align: right;">
-      <p><strong>Subtotal:</strong> $135.00</p>
-      <p><strong>Shipping:</strong> $10.00</p>
-      <p><strong>Total:</strong> $145.00</p>
-      <button class="btn btn--primary" style="width: 100%; margin-top: 1rem;">Proceed to Checkout</button>
+      <p><strong>Subtotal:</strong> <span id="subtotal">$0.00</span></p>
+      <p><strong>Shipping:</strong> $0.80</p>
+      <p><strong>Total:</strong> <span id="total">$0.80</span></p>
+      <button class="btn btn--primary" id="proceed-to-checkout-btn" style="width: 100%; margin-top: 1rem;">Proceed to Checkout</button>
     </div>
 
   </div>
 <script src="js/main.js"></script>
+<script src="js/cart.js"></script>
 </body>
 </html>

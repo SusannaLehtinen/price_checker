@@ -68,7 +68,7 @@ coffee_shop/
 2. Install dependencies:
 
    ```bash
-   npm install  
+   npm install
    ```
 
 3. Create a `.env` file with your MySQL configuration:
@@ -78,7 +78,8 @@ coffee_shop/
    DB_USER=root  
    DB_PASS=your_password  
    DB_NAME=coffee_shop  
-   PORT=3000  
+   PORT=3000
+   JWT_SECRET=supersecret123
    ```
 
 4. Start the server:

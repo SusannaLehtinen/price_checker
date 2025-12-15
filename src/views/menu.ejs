@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body style="margin-top: 100px;">
+  <!-- ======= NAVBAR (SAME AS HOME PAGE) ======= -->
+  <div id="navbar-container"></div>
+
+  <!-- ======= PAGE HEADER ======= -->
+  <section class="page-header">
+    <h1 class="page-header__title">Menu</h1>
+  </section>
+
+  <!-- ======= CATEGORY FILTERS (JUST VISUAL, NO JS NEEDED) ======= -->
+  <section class="section">
+    <div class="filters">
+      <button class="filter-button filter-button--active">All</button>
+      <button class="filter-button">Hot Drinks</button>
+      <button class="filter-button">Cold Drinks</button>
+      <button class="filter-button">Pastries</button>
+    </div>
+
+    <!-- ======= PRODUCTS GRID ======= -->
+    <div class="product-grid product-grid--menu">
+      <% if (products && products.length > 0) { %>
+        <% products.forEach(product => { %>
+          <article class="product-card">
+            <div class="product-card__image">
+              <% if (product.image) { %>
+                <img src="<%= product.image %>" alt="<%= product.name %>" />
+              <% } else { %>
+                Image
+              <% } %>
+            </div>
+            <div class="product-card__body">
+              <h3 class="product-card__title"><%= product.name %></h3>
+              <p class="product-card__description">
+                <%= product.description %>
+              </p>
+              <div class="product-card__meta">
+                <!-- می‌تونید بعداً tag/size رو اینجا نشون بدید -->
+              </div>
+              <div class="product-card__footer">
+                <span class="product-card__price">
+                  $<%= Number(product.price).toFixed(2) %>
+                </span>
+                <button class="btn btn--small add-to-cart-btn" data-product-id="<%= product.id %>">Add to cart</button>
+              </div>
+            </div>
+          </article>
+        <% }) %>
+      <% } else { %>
+        <p>No products available.</p>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER / SCRIPTS ======= -->
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', async (event) => {
+          const productId = event.target.dataset.productId;
+
+          try {
+            const response = await fetch('/api/cart/add', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                productId: parseInt(productId, 10),
+                quantity: 1
+              }),
+            });
+
+            if (response.ok) {
+              const result = await response.json();
+              console.log('Product added to cart:', result);
+              alert('Product added to cart!');
+              // Тут можна оновити іконку кошика
+            } else {
+              const error = await response.json();
+              alert('Failed to add product: ' + error.message);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

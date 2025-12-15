@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Orders (Admin)</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body style="margin-top: 100px">
+
+<div style="margin-bottom: 20px;">
+    <label><strong>Filter by status:</strong></label>
+    <select id="order-filter" onchange="loadOrders()" style="margin-left: 10px;">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+    </select>
+</div>
+
+<div id="navbar-container"></div>
+
+<div class="container">
+    <div class="section page-header">
+      <h1 class="page-header__title">All Orders</h1>
+      <p class="page-header__subtitle">Manage customer orders</p>
+    </div>
+
+    <div class="section product-grid cart-grid" id="orders-container"></div>
+</div>
+
+<script>
+function loadOrders() {
+
+    const filter = document.getElementById("order-filter").value;
+
+    fetch("http://localhost:3000/orders/all", {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    })
+    .then(res => res.json())
+    .then(orders => {
+
+        if (filter !== "all") {
+            orders = orders.filter(order => order.status === filter);
+        }
+
+        const container = document.getElementById("orders-container");
+        container.innerHTML = "";
+
+        orders.forEach(order => {
+
+            let itemsHTML = "";
+            order.items.forEach(item => {
+                itemsHTML += `
+                    <li style="margin-bottom: 8px; color: #5c3b28;">
+                        <strong>Product ID:</strong> ${item.product_id}<br>
+                        <strong>Quantity:</strong> ${item.quantity}<br>
+                        <strong>Price:</strong> $${item.price}
+                    </li>
+                `;
+            });
+
+            container.innerHTML += `
+            <div class="product-card">
+
+                <div class="product-card__body">
+                  <h2 class="product-card__title">Order #${order.id}</h2>
+
+                  <p class="product-card__description">
+                    <strong>User ID:</strong> ${order.user_id}<br>
+                    <strong>Date:</strong> ${order.created_at ?? "N/A"}<br>
+                    <strong>Total:</strong> $${order.total_price}
+                  </p>
+
+                  <div class="product-card__meta" style="margin-bottom: 10px;">
+                    <span><strong>Status:</strong></span>
+                    <select onchange="updateStatus(${order.id}, this.value)" style="margin-left: 10px;">
+                      <option value="pending"   ${order.status === "pending" ? "selected" : ""}>pending</option>
+                      <option value="completed" ${order.status === "completed" ? "selected" : ""}>completed</option>
+                      <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>cancelled</option>
+                    </select>
+                  </div>
+
+                  <div style="
+                      background: #f7e7d5;
+                      padding: 15px 20px;
+                      border-radius: 20px;
+                      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+                      margin-top: 15px;
+                  ">
+                    <strong style="font-size: 16px; color: #5c3b28;">Items:</strong>
+                    <ul style="margin-top: 10px; padding-left: 0; list-style: none;">
+                        ${itemsHTML}
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            `;
+        });
+    });
+}
+
+function updateStatus(orderId, status) {
+    fetch(`http://localhost:3000/orders/status/${orderId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ status })
+    }).then(() => loadOrders());
+}
+
+window.onload = loadOrders;
+</script>
+
+</body>
+</html>
