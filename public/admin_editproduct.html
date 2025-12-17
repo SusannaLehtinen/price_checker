@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Product</title>
+</head>
+<body>
+  <h1>Edit Product</h1>
+
+  <form id="editProductForm">
+    <label>
+      Name:
+      <input type="text" id="name" required />
+    </label>
+    <br><br>
+
+    <label>
+      Description:
+      <textarea id="description" required></textarea>
+    </label>
+    <br><br>
+
+    <label>
+      Price (€):
+      <input type="number" id="price" step="0.01" required />
+    </label>
+    <br><br>
+
+    <label>
+      Image URL:
+      <input type="text" id="image" />
+    </label>
+    <br><br>
+
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <script src="js/admin_editproduct.js"></script>
+</body>
+</html>
